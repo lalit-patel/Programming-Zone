@@ -1,0 +1,70 @@
+<p><span style="color: rgb(0, 28, 59); font-family: proxima-nova, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgba(216, 226, 243, 0.2); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">This is a simple project that uses Luhn&rsquo;s algorithm to validate a user&apos;s credit card. The program works for all popular cards like Visa, Amex, MasterCard, etc. Luhn&rsquo;s algorithm checks for basic validations; for example, a Visa card should start with 4 and then moves on to complex digit-wise calculations. It is a good program to learn because most e-commerce transactions require credit card validation.</span></p>
+<p><br></p>
+
+
+<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(51, 51, 51); color: rgb(255, 255, 255);"><span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span></span>
+
+<span class="hljs-keyword" style="color: rgb(252, 194, 140);">using</span> <span class="hljs-keyword" style="color: rgb(252, 194, 140);">namespace</span> <span class="hljs-built_in" style="color: rgb(255, 255, 170);">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">isNumberString</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">const</span> <span class="hljs-built_in" style="color: rgb(255, 255, 170);">string</span>&amp; s)</span> </span>{
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> len = s.length();
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> i = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; i &lt; len; i++) {
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (s[i] &lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">'0'</span> || s[i] &gt; <span class="hljs-string" style="color: rgb(162, 252, 162);">'9'</span>)
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">false</span>;
+    }
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">true</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">string</span> ccNumber;
+
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"This program uses the Luhn Algorigthm to validate a CC number."</span> &lt;&lt; <span class="hljs-built_in" style="color: rgb(255, 255, 170);">endl</span>;
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"You can enter 'exit' anytime to quit."</span> &lt;&lt; <span class="hljs-built_in" style="color: rgb(255, 255, 170);">endl</span>;
+
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">while</span> (<span class="hljs-literal" style="color: rgb(252, 194, 140);">true</span>) {
+
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"Please enter a CC number to validate: "</span>;
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cin</span> &gt;&gt; ccNumber;
+
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (ccNumber == <span class="hljs-string" style="color: rgb(162, 252, 162);">"exit"</span>)
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">break</span>;
+
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">else</span> <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (!isNumberString(ccNumber)) {
+            <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"Bad input! "</span>;
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">continue</span>;
+        }
+
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> len = ccNumber.length();
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> doubleEvenSum = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>;
+
+        <span class="hljs-comment" style="color: rgb(136, 136, 136);">// Step 1 is to double every second digit, starting from the right. If it</span>
+        <span class="hljs-comment" style="color: rgb(136, 136, 136);">// results in a two digit number, add both the digits to obtain a single</span>
+        <span class="hljs-comment" style="color: rgb(136, 136, 136);">// digit number. Finally, sum all the answers to obtain 'doubleEvenSum'.   </span>
+
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> i = len - <span class="hljs-number" style="color: rgb(211, 99, 99);">2</span>; i &gt;= <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; i = i - <span class="hljs-number" style="color: rgb(211, 99, 99);">2</span>) {
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> dbl = ((ccNumber[i] - <span class="hljs-number" style="color: rgb(211, 99, 99);">48</span>) * <span class="hljs-number" style="color: rgb(211, 99, 99);">2</span>);
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (dbl &gt; <span class="hljs-number" style="color: rgb(211, 99, 99);">9</span>) {
+                dbl = (dbl / <span class="hljs-number" style="color: rgb(211, 99, 99);">10</span>) + (dbl % <span class="hljs-number" style="color: rgb(211, 99, 99);">10</span>);
+            }
+            doubleEvenSum += dbl;
+        }
+
+        <span class="hljs-comment" style="color: rgb(136, 136, 136);">// Step 2 is to add every odd placed digit from the right to the value</span>
+        <span class="hljs-comment" style="color: rgb(136, 136, 136);">// 'doubleEvenSum'.</span>
+
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> i = len - <span class="hljs-number" style="color: rgb(211, 99, 99);">1</span>; i &gt;= <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; i = i - <span class="hljs-number" style="color: rgb(211, 99, 99);">2</span>) {
+            doubleEvenSum += (ccNumber[i] - <span class="hljs-number" style="color: rgb(211, 99, 99);">48</span>);
+        }
+
+        <span class="hljs-comment" style="color: rgb(136, 136, 136);">// Step 3 is to check if the final 'doubleEvenSum' is a multiple of 10.</span>
+        <span class="hljs-comment" style="color: rgb(136, 136, 136);">// If yes, it is a valid CC number. Otherwise, not.</span>
+
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; (doubleEvenSum % <span class="hljs-number" style="color: rgb(211, 99, 99);">10</span> == <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span> ? <span class="hljs-string" style="color: rgb(162, 252, 162);">"Valid!"</span> : <span class="hljs-string" style="color: rgb(162, 252, 162);">"Invalid!"</span>) &lt;&lt; <span class="hljs-built_in" style="color: rgb(255, 255, 170);">endl</span>;
+
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">continue</span>;
+    }
+
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>;
+}</pre>

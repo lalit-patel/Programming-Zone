@@ -1,0 +1,102 @@
+<p><span style="color: rgb(0, 28, 59); font-family: proxima-nova, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgba(216, 226, 243, 0.2); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">We all know about the popular Sudoku game, wherein we need to arrange numbers from 1-9 such that they appear only once in a row and column of a 9x9 grid. The program uses the concept of backtracking. In this program, we have hard-coded the initial values, but you can also get the same input from the user (though that will be cumbersome for this program). The main thing to understand is the backtracking to find rows and columns that are not assigned any values (are zero).</span> </p>
+<p><br></p>
+
+<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(51, 51, 51); color: rgb(255, 255, 255);"><span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span>
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span>
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib&gt;</span></span>
+<span class="hljs-keyword" style="color: rgb(252, 194, 140);">using</span> <span class="hljs-keyword" style="color: rgb(252, 194, 140);">namespace</span> <span class="hljs-built_in" style="color: rgb(255, 255, 170);">std</span>;
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">define</span> empty 0</span>
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">define</span> N 9</span>
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">isGridSafe</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> grid[N][N], <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> row, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> col, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> num)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">isEmptyLocation</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> grid[N][N], <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> &amp;row, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> &amp;col)</span></span>;
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">/* assign values to all the zero (not assigned) values for Sudoku solution
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">SolveSudoku</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> grid[N][N])</span>
+</span>{
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> row, col;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (!isEmptyLocation(grid, row, col))
+       <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">true</span>;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> num = <span class="hljs-number" style="color: rgb(211, 99, 99);">1</span>; num &lt;= <span class="hljs-number" style="color: rgb(211, 99, 99);">9</span>; num++)
+    {
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (isGridSafe(grid, row, col, num))
+        {
+            grid[row][col] = num;
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (SolveSudoku(grid))
+                <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">true</span>;
+            grid[row][col] = empty;
+        }
+    }
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">false</span>;
+}
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">/* Check for entries that don't have a value. */</span>
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">isEmptyLocation</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> grid[N][N], <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> &amp;row, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> &amp;col)</span>
+</span>{
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (row = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; row &lt; N; row++)
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (col = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; col &lt; N; col++)
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (grid[row][col] == empty)
+                <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">true</span>;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">false</span>;
+}
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">/* Returns whether the assigned entry n in the particular row matches
+   the given number num. */</span>
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">UsedInRow</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> grid[N][N], <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> prow, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> number)</span>
+</span>{
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> col = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; col &lt; N; col++)
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (grid[prow][col] == number)
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">true</span>;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">false</span>;
+}
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">/* Returns true if the number num matches any number in the column */</span>
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">UsedInCol</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> grid[N][N], <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> pcol, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> number)</span>
+</span>{
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> row = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; row &lt; N; row++)
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (grid[row][pcol] == number)
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">true</span>;
+  <span class="hljs-keyword" style="color: rgb(252, 194, 140);">else</span>
+     <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-literal" style="color: rgb(252, 194, 140);">false</span>;
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">//Check if the entry used already in the grid box</span>
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">UsedInBox</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> grid[N][N], <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> boxBeginRow, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> boxBeginCol, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> number)</span>
+
+</span>{
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> tf = <span class="hljs-literal" style="color: rgb(252, 194, 140);">false</span>;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> row = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; row &lt; <span class="hljs-number" style="color: rgb(211, 99, 99);">3</span>; row++)
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> col = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; col &lt; <span class="hljs-number" style="color: rgb(211, 99, 99);">3</span>; col++)
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (grid[row+boxBeginRow][col+boxBeginCol] == number)
+                tf = <span class="hljs-literal" style="color: rgb(252, 194, 140);">true</span>;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> tf;
+}
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">/* Checks if num can be assigned to a given prow,pcol location. */</span>
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">bool</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">isGridSafe</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> grid[N][N], <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> prow, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> pcol, <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> number)</span>
+</span>{
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> !UsedInRow(grid, prow, number) &amp;&amp; !UsedInCol(grid, pcol, number) &amp;&amp;
+           !UsedInBox(grid, prow - prow % <span class="hljs-number" style="color: rgb(211, 99, 99);">3</span> , pcol - pcol % <span class="hljs-number" style="color: rgb(211, 99, 99);">3</span>, number);
+}
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">/* print result  */</span>
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">void</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">printResult</span><span class="hljs-params">(<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> finalgrid[N][N])</span>
+</span>{
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> row = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; row &lt; N; row++)
+    {
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">for</span> (<span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> col = <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>; col &lt; N; col++)
+            <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span>&lt;&lt; finalgrid[row][col]&lt;&lt;<span class="hljs-string" style="color: rgb(162, 252, 162);">"  "</span>;
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span>&lt;&lt;<span class="hljs-built_in" style="color: rgb(255, 255, 170);">endl</span>;
+    }
+}
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">/* Main */</span>
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">main</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> grid[N][N] = {{<span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>},
+                      {<span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">3</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">8</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">5</span>},
+                      {<span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">1</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">2</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>},
+                      {<span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">5</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">7</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>},
+                      {<span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">4</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">1</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>},
+                      {<span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">9</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>},
+                      {<span class="hljs-number" style="color: rgb(211, 99, 99);">5</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">7</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">3</span>},
+                      {<span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">2</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">1</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>},
+                      {<span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">4</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>, <span class="hljs-number" style="color: rgb(211, 99, 99);">9</span>}};
+<span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span> (SolveSudoku(grid) == <span class="hljs-literal" style="color: rgb(252, 194, 140);">true</span>)
+          printResult(grid);
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">else</span>
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span>&lt;&lt;<span class="hljs-string" style="color: rgb(162, 252, 162);">"No solution found"</span>&lt;&lt;<span class="hljs-built_in" style="color: rgb(255, 255, 170);">endl</span>;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>;
+}</pre>

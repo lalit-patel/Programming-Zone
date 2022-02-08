@@ -1,0 +1,28 @@
+<pre class="hljs" style="color: rgb(169, 183, 198); background: rgb(40, 43, 46); display: block; overflow-x: auto; padding: 0.5em;"><span class="hljs-keyword" style="color: rgb(204, 120, 50);">import</span> java.util.*;
+
+<span class="hljs-keyword" style="color: rgb(204, 120, 50);">class</span> Ans{
+<span class="hljs-keyword" style="color: rgb(204, 120, 50);">public</span> static void main(String[] args) {
+
+String choice = <span class="hljs-string" style="color: rgb(106, 135, 89);">""</span>;
+
+<span class="hljs-built_in">int</span> <span class="hljs-built_in">sum</span> = <span class="hljs-number" style="color: rgb(104, 151, 187);">0</span>;
+<span class="hljs-built_in">int</span> <span class="hljs-built_in">product</span> = <span class="hljs-number" style="color: rgb(104, 151, 187);">1</span>;
+<span class="hljs-built_in">int</span> <span class="hljs-built_in">count</span> = <span class="hljs-number" style="color: rgb(104, 151, 187);">0</span>;
+Scanner input = new Scanner(System.<span class="hljs-keyword" style="color: rgb(204, 120, 50);">in</span>);
+
+<span class="hljs-keyword" style="color: rgb(204, 120, 50);">while</span>(<span class="hljs-comment" style="color: grey;">!choice.equals("q")){</span>
+    System.<span class="hljs-keyword" style="color: rgb(204, 120, 50);">out</span>.println(<span class="hljs-string" style="color: rgb(106, 135, 89);">"Enter a number or q to quit"</span>);
+    choice = input.next();
+
+    <span class="hljs-keyword" style="color: rgb(204, 120, 50);">if</span>(<span class="hljs-comment" style="color: grey;">!choice.equals("q")){</span>
+        <span class="hljs-built_in">int</span> <span class="hljs-keyword" style="color: rgb(204, 120, 50);">number</span> = <span class="hljs-keyword" style="color: rgb(204, 120, 50);">Integer</span>.parseInt(choice);
+        <span class="hljs-built_in">sum</span> = <span class="hljs-built_in">sum</span>+<span class="hljs-keyword" style="color: rgb(204, 120, 50);">number</span>;
+        <span class="hljs-built_in">product</span> = <span class="hljs-built_in">product</span>*<span class="hljs-keyword" style="color: rgb(204, 120, 50);">number</span>;
+        <span class="hljs-built_in">count</span>++;
+    }
+}
+
+System.<span class="hljs-keyword" style="color: rgb(204, 120, 50);">out</span>.println(<span class="hljs-string" style="color: rgb(106, 135, 89);">"Product is: "</span>+<span class="hljs-built_in">product</span>+<span class="hljs-string" style="color: rgb(106, 135, 89);">"\nAverage is: "</span>+((<span class="hljs-built_in">float</span>)<span class="hljs-built_in">sum</span>/<span class="hljs-built_in">count</span>));
+
+}
+}</pre>

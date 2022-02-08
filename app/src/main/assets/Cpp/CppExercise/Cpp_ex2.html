@@ -1,0 +1,79 @@
+<p><span style="color: rgb(0, 28, 59); font-family: proxima-nova, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgba(216, 226, 243, 0.2); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">This is an exciting project, where we will learn about the library used for random numbers: cstdlib. The program asks for a betting amount and then asks the user to guess a number on rolling. If the random number generated matches the user input, he wins, else money is deducted. The user can keep playing until he loses all the amount he put in initially.&nbsp;</span></p>
+<p><br></p>
+
+<pre class="hljs" style="display: block; overflow-x: auto; padding: 0.5em; background: rgb(51, 51, 51); color: rgb(255, 255, 255);"><span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;string&gt;</span> <span class="hljs-comment" style="color: rgb(136, 136, 136);">// Needed to use strings</span></span>
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib&gt;</span> <span class="hljs-comment" style="color: rgb(136, 136, 136);">// Needed to use random numbers</span></span>
+<span class="hljs-meta" style="color: rgb(252, 155, 155);">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctime&gt;</span></span>
+<span class="hljs-keyword" style="color: rgb(252, 194, 140);">using</span> <span class="hljs-keyword" style="color: rgb(252, 194, 140);">namespace</span> <span class="hljs-built_in" style="color: rgb(255, 255, 170);">std</span>;
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">void</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">rules</span><span class="hljs-params">()</span></span>;
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">main</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">string</span> playerName;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> balance; <span class="hljs-comment" style="color: rgb(136, 136, 136);">// stores player's balance</span>
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> bettingAmount;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> guess;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">int</span> dice; <span class="hljs-comment" style="color: rgb(136, 136, 136);">// stores the random number</span>
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">char</span> choice;
+    srand(time(<span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>)); <span class="hljs-comment" style="color: rgb(136, 136, 136);">// "Seed" the random generator</span>
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n\t\t========WELCOME TO CASINO WORLD=======\n\n"</span>;
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n\nWhat's your Name : "</span>;
+    getline(<span class="hljs-built_in" style="color: rgb(255, 255, 170);">cin</span>, playerName);
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n\nEnter the starting balance to play game : $"</span>;
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cin</span> &gt;&gt; balance;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">do</span>
+    {
+        system(<span class="hljs-string" style="color: rgb(162, 252, 162);">"cls"</span>);
+        rules();
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n\nYour current balance is $ "</span> &lt;&lt; balance &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n"</span>;
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">// Get player's betting balance</span>
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">do</span>
+        {
+            <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"Hey, "</span> &lt;&lt; playerName&lt;&lt;<span class="hljs-string" style="color: rgb(162, 252, 162);">", enter amount to bet : $"</span>;
+            <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cin</span> &gt;&gt; bettingAmount;
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span>(bettingAmount &gt; balance)
+                <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"Betting balance can't be more than current balance!\n"</span>
+                       &lt;&lt;<span class="hljs-string" style="color: rgb(162, 252, 162);">"\nRe-enter balance\n "</span>;
+        }<span class="hljs-keyword" style="color: rgb(252, 194, 140);">while</span>(bettingAmount &gt; balance);
+<span class="hljs-comment" style="color: rgb(136, 136, 136);">// Get player's numbers</span>
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">do</span>
+        {
+            <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"Guess any betting number between 1 &amp; 10 :"</span>;
+            <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cin</span> &gt;&gt; guess;
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span>(guess &lt;= <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span> || guess &gt; <span class="hljs-number" style="color: rgb(211, 99, 99);">10</span>)
+                <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\nNumber should be between 1 to 10\n"</span>
+                    &lt;&lt;<span class="hljs-string" style="color: rgb(162, 252, 162);">"Re-enter number:\n "</span>;
+        }<span class="hljs-keyword" style="color: rgb(252, 194, 140);">while</span>(guess &lt;= <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span> || guess &gt; <span class="hljs-number" style="color: rgb(211, 99, 99);">10</span>);
+        dice = rand()%<span class="hljs-number" style="color: rgb(211, 99, 99);">10</span> + <span class="hljs-number" style="color: rgb(211, 99, 99);">1</span>;
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span>(dice == guess)
+        {
+            <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n\nYou are in luck!! You have won Rs."</span> &lt;&lt; bettingAmount * <span class="hljs-number" style="color: rgb(211, 99, 99);">10</span>;
+            balance = balance + bettingAmount * <span class="hljs-number" style="color: rgb(211, 99, 99);">10</span>;
+        }
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">else</span>
+        {
+            <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"Oops, better luck next time !! You lost $ "</span>&lt;&lt; bettingAmount &lt;&lt;<span class="hljs-string" style="color: rgb(162, 252, 162);">"\n"</span>;
+            balance = balance - bettingAmount;
+        }
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\nThe winning number was : "</span> &lt;&lt; dice &lt;&lt;<span class="hljs-string" style="color: rgb(162, 252, 162);">"\n"</span>;
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n"</span>&lt;&lt;playerName&lt;&lt;<span class="hljs-string" style="color: rgb(162, 252, 162);">", You have balance of $ "</span> &lt;&lt; balance &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n"</span>;
+        <span class="hljs-keyword" style="color: rgb(252, 194, 140);">if</span>(balance == <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>)
+        {
+            <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"You have no money to play "</span>;
+            <span class="hljs-keyword" style="color: rgb(252, 194, 140);">break</span>;
+        }
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n\n--&gt;Do you want to play again (y/n)? "</span>;
+        <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cin</span> &gt;&gt; choice;
+    }<span class="hljs-keyword" style="color: rgb(252, 194, 140);">while</span>(choice ==<span class="hljs-string" style="color: rgb(162, 252, 162);">'Y'</span>|| choice==<span class="hljs-string" style="color: rgb(162, 252, 162);">'y'</span>);
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n\n\n"</span>;
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n\nThanks for playing the game. Your balance is $ "</span> &lt;&lt; balance &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\n\n"</span>;
+    <span class="hljs-keyword" style="color: rgb(252, 194, 140);">return</span> <span class="hljs-number" style="color: rgb(211, 99, 99);">0</span>;
+}
+<span class="hljs-function"><span class="hljs-keyword" style="color: rgb(252, 194, 140);">void</span> <span class="hljs-title" style="color: rgb(255, 255, 170);">rules</span><span class="hljs-params">()</span>
+</span>{
+    system(<span class="hljs-string" style="color: rgb(162, 252, 162);">"cls"</span>);
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\t\t======CASINO NUMBER GUESSING RULES!======\n"</span>;
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\t1. Choose a number between 1 to 10\n"</span>;
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\t2. Winner gets 10 times of the money bet\n"</span>;
+    <span class="hljs-built_in" style="color: rgb(255, 255, 170);">cout</span> &lt;&lt; <span class="hljs-string" style="color: rgb(162, 252, 162);">"\t3. Wrong bet, and you lose the amount you bet\n\n"</span>;
+}</pre>

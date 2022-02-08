@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+    android:drawable="@drawable/defaultbtn"/>
+    <item
+        android:drawable="@drawable/focusedbtn"
+        android:state_pressed="true"/>
+</selector>
